@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_store/presentation/ressource/route_manager.dart';
 import 'package:shoes_store/wrapper.dart';
+
+import 'app/constant/route.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +21,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const Wrapper(),
+      onGenerateRoute: RouteManager.getRoute,
+      initialRoute: Routes.registerRoute,
     );
   }
 }

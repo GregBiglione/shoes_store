@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoes_store/presentation/home_screen.dart';
-import 'package:shoes_store/presentation/sign_up_screen.dart';
+import 'package:shoes_store/presentation/home/home_screen.dart';
+import 'package:shoes_store/presentation/sign_up/sign_up_screen.dart';
 
 class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);
