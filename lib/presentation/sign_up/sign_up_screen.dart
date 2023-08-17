@@ -16,6 +16,10 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final String name = "";
+  final String email = "";
+  final String password = "";
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -70,6 +74,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
+                          onChanged: (value) {
+                            setInputValue(value, name);
+                          },
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
@@ -85,6 +92,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
+                          onChanged: (value) {
+                            setInputValue(value, email);
+                          },
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
@@ -101,6 +111,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
+                          onChanged: (value) {
+                            setInputValue(value, password);
+                          },
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
@@ -143,4 +156,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       )
     );
   }
+
+  //----------------------------------------------------------------------------
+  // Set input value
+  //----------------------------------------------------------------------------
+
+  setInputValue(String value, String changedValueByUser) {
+    setState(() => changedValueByUser = value);
+    print(changedValueByUser);
+  }
+
 }
