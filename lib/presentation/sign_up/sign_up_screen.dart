@@ -26,7 +26,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       backgroundColor: ColorManager.white,
       body: Container(
         padding: const EdgeInsets.only(
-          top: SizeManager.s100,
+          top: SizeManager.s120,
         ),
         child: SingleChildScrollView(
           child: Center(
@@ -126,7 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Navigator.pushNamed(context, Routes.loginRoute);
                           },
                           child: Text(
-                            StringManager.login,
+                            StringManager.loginLink,
                             style: getMediumStyleF(
                               color: ColorManager.lightBlue,
                             ),
