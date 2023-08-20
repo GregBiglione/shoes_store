@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
@@ -16,9 +18,17 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final String name = "";
-  final String email = "";
-  final String password = "";
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       children: [
                         TextField(
+                          controller: _nameController,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
                             hintText: StringManager.name,
@@ -74,14 +85,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
-                          onChanged: (value) {
+                          /*onChanged: (value) {
                             setInputValue(value, name);
-                          },
+                          },*/
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
                         ),
                         TextField(
+                          controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             hintText: StringManager.email,
@@ -92,14 +104,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
-                          onChanged: (value) {
+                          /*onChanged: (value) {
                             setInputValue(value, email);
-                          },
+                          },*/
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
                         ),
                         TextField(
+                          controller: _passwordController,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -111,24 +124,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
-                          onChanged: (value) {
+                          /*onChanged: (value) {
                             setInputValue(value, password);
-                          },
+                          },*/
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: SizeManager.s60,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: ColorManager.black,
-                              borderRadius: BorderRadius.circular(SizeManager.s18)
-                          ),
-                          child: Text(
-                            StringManager.register,
-                            style: getBoldStyle18(color: ColorManager.white),
+                        GestureDetector(
+                          onTap: () {
+                            register();
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: SizeManager.s60,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: ColorManager.black,
+                                borderRadius: BorderRadius.circular(SizeManager.s18)
+                            ),
+                            child: Text(
+                              StringManager.register,
+                              style: getBoldStyle18(color: ColorManager.white),
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -158,12 +176,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   //----------------------------------------------------------------------------
-  // Set input value
+  // Register user
   //----------------------------------------------------------------------------
 
-  setInputValue(String value, String changedValueByUser) {
-    setState(() => changedValueByUser = value);
-    print(changedValueByUser);
-  }
+  register() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
 
+    UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _emailController.text.trim(),
+    );
+
+    if (userCredential.user != null) {
+      User user = userCredential.user!;
+
+      // Save user data in db --------------------------------------------------
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      firestore.collection("users").doc(user.uid).set({
+        "name": _nameController.text,
+        "email": _emailController.text,
+      });
+    }
+  }
 }

@@ -1,10 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shoes_store/firebase_options.dart';
 import 'package:shoes_store/presentation/ressource/route_manager.dart';
 import 'package:shoes_store/wrapper.dart';
 
 import 'app/constant/route.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
   runApp(const MyApp());
 }
 
