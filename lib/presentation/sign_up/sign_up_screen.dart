@@ -50,12 +50,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(
-                      width: 45,
-                      height: 45,
-                      child: Image(
-                        image: AssetImage(ImageManager.logo),
-                      ),
+                    const Column(
+                      children: [
+                        SizedBox(
+                          width: 45,
+                          height: 45,
+                          child: Image(
+                            image: AssetImage(ImageManager.logo),
+                          ),
+                        ),
+                        SizedBox(
+                          height: SizeManager.s10,
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       width: SizeManager.s10,
@@ -104,9 +111,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
-                          /*onChanged: (value) {
-                            setInputValue(value, email);
-                          },*/
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
@@ -124,9 +128,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               borderRadius: BorderRadius.circular(SizeManager.s18),
                             ),
                           ),
-                          /*onChanged: (value) {
-                            setInputValue(value, password);
-                          },*/
                         ),
                         const SizedBox(
                           height: SizeManager.s20,
