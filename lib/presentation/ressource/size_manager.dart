@@ -21,6 +21,7 @@ class SizeManager {
   static const double s120 = 120.0;
   static const double s130 = 130.0;
   static const double s140 = 140.0;
+  static const double s170 = 170.0;
   static const double s180 = 180.0;
   static const double s190 = 190.0;
 }

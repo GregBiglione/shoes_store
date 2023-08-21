@@ -9,4 +9,5 @@ class StringManager {
   static const String noRouteFound = "No Route found";
   static const String login = "Login";
   static const String loading = "Loading...";
+  static const String buy = "Buy";
 }

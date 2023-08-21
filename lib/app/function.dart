@@ -22,3 +22,10 @@ loading(String message) {
     ),
   );
 }
+
+String addZero(String price) {
+  if(price.contains(".0")) {
+    return "${price}0";
+  }
+  return price;
+}
