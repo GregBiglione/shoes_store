@@ -8,4 +8,5 @@ class StringManager {
   static const String registerLink = "Not a member ? Sign up";
   static const String noRouteFound = "No Route found";
   static const String login = "Login";
+  static const String loading = "Loading...";
 }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/constant/route.dart';
+import '../../app/function.dart';
 import '../ressource/color_manager.dart';
 import '../ressource/image_manager.dart';
 import '../ressource/size_manager.dart';
@@ -18,6 +19,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isLoadingVisible = false;
 
   @override
   void dispose() {
@@ -28,7 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isLoadingVisible
+        ? loading(StringManager.loading)
+        : Scaffold(
         backgroundColor: ColorManager.white,
         body: Container(
           padding: const EdgeInsets.only(
@@ -147,12 +151,18 @@ class _LoginScreenState extends State<LoginScreen> {
   //----------------------------------------------------------------------------
 
   login() async {
+    setState(() {
+      isLoadingVisible = true;
+    });
     FirebaseAuth auth = FirebaseAuth.instance;
 
     await auth.signInWithEmailAndPassword(
       email: _emailController.text.trim(),
       password: _emailController.text.trim(),
     );
+    setState(() {
+      isLoadingVisible = false;
+    });
     gotoHomeScreen();
   }
 
@@ -161,6 +171,6 @@ class _LoginScreenState extends State<LoginScreen> {
   //----------------------------------------------------------------------------
 
   void gotoHomeScreen() {
-    Navigator.pushNamed(context, Routes.homeRoute);
+    Navigator.pop(context);
   }
 }

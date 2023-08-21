@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shoes_store/app/function.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
 import 'package:shoes_store/presentation/ressource/image_manager.dart';
 import 'package:shoes_store/presentation/ressource/size_manager.dart';
@@ -21,6 +22,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isLoadingVisible = false;
 
   @override
   void dispose() {
@@ -35,8 +37,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
     ));
-
-    return Scaffold(
+    return isLoadingVisible
+        ? loading(StringManager.loading)
+        : Scaffold(
       backgroundColor: ColorManager.white,
       body: Container(
         padding: const EdgeInsets.only(
@@ -181,6 +184,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   //----------------------------------------------------------------------------
 
   register() async {
+    setState(() {
+      isLoadingVisible = true;
+    });
     FirebaseAuth auth = FirebaseAuth.instance;
 
     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
@@ -194,9 +200,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       // Save user data in db --------------------------------------------------
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      firestore.collection("users").doc(user.uid).set({
+      await firestore.collection("users").doc(user.uid).set({
         "name": _nameController.text,
         "email": _emailController.text,
+      });
+      setState(() {
+        isLoadingVisible = false;
       });
     }
   }
