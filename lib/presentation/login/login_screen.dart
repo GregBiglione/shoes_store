@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../app/constant/route.dart';
@@ -15,6 +16,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Column(
                         children: [
                           TextField(
+                            controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             decoration: InputDecoration(
                               hintText: StringManager.email,
@@ -70,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: SizeManager.s20,
                           ),
                           TextField(
+                            controller: _passwordController,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: true,
                             decoration: InputDecoration(
@@ -85,17 +98,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           const SizedBox(
                             height: SizeManager.s20,
                           ),
-                          Container(
-                            width: double.infinity,
-                            height: SizeManager.s60,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                color: ColorManager.black,
-                                borderRadius: BorderRadius.circular(SizeManager.s18)
-                            ),
-                            child: Text(
-                              StringManager.login,
-                              style: getBoldStyle18(color: ColorManager.white),
+                          GestureDetector(
+                            onTap: () {
+                              login();
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: SizeManager.s60,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: ColorManager.black,
+                                  borderRadius: BorderRadius.circular(SizeManager.s18)
+                              ),
+                              child: Text(
+                                StringManager.login,
+                                style: getBoldStyle18(color: ColorManager.white),
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -122,5 +140,27 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         )
     );
+  }
+
+  //----------------------------------------------------------------------------
+  // Login user
+  //----------------------------------------------------------------------------
+
+  login() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    await auth.signInWithEmailAndPassword(
+      email: _emailController.text.trim(),
+      password: _emailController.text.trim(),
+    );
+    gotoHomeScreen();
+  }
+
+  //----------------------------------------------------------------------------
+  // Go to home
+  //----------------------------------------------------------------------------
+
+  void gotoHomeScreen() {
+    Navigator.pushNamed(context, Routes.homeRoute);
   }
 }

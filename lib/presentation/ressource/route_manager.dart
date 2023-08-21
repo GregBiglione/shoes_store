@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_store/presentation/home/home_screen.dart';
 import 'package:shoes_store/presentation/login/login_screen.dart';
 import 'package:shoes_store/presentation/ressource/string_manager.dart';
 
@@ -12,6 +13,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case Routes.registerRoute:
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
+      case Routes.homeRoute:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         return undefinedRoute();
     }
