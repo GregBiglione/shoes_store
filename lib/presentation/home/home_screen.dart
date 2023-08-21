@@ -133,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
   displayBottomSheet(Product product) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(SizeManager.s18),
@@ -140,67 +141,92 @@ class _HomeScreenState extends State<HomeScreen> {
         )
       ),
       builder: (context) {
-        return Container(
-          padding: const EdgeInsets.all(SizeManager.s8),
-          height: SizeManager.s200,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    height: SizeManager.s80,
-                    child: Image.network(product.imageUrl),
-                  ),
-                  const SizedBox(
-                    width: SizeManager.s10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        product.name,
-                        style: getSemiBoldStyle(color: ColorManager.black),
-                      ),
-                      SizedBox(
-                        width: 20,
-                        child: TextFormField(
-                          initialValue: product.quantity.toString(),
-                          textAlign: TextAlign.center,
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: Container(
+                padding: const EdgeInsets.all(SizeManager.s8),
+                height: SizeManager.s200,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: SizeManager.s80,
+                          child: Image.network(product.imageUrl),
+                        ),
+                        const SizedBox(
+                          width: SizeManager.s10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name,
+                              style: getSemiBoldStyle(color: ColorManager.black),
+                            ),
+                            SizedBox(
+                              width: 20,
+                              child: TextFormField(
+                                keyboardType: TextInputType.number,
+                                initialValue: product.quantity.toString(),
+                                textAlign: TextAlign.center,
+                                onChanged: (value) {
+                                  setState(() {
+                                    product.quantity = int.tryParse(value) ?? 1;
+                                  });
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Expanded(
+                          child: SizedBox(
+                            width: SizeManager.s5,
+                          ),
+                        ),
+                        Text(
+                          "\$${addZero(product.price)}",
+                          style: getSemiBoldStyle(color: ColorManager.black),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: double.maxFinite,
+                      height: SizeManager.s50,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: ColorManager.black,
+                        ),
+                        child: Text(
+                          "Pay \$${addZero(calculateTotalPrice(product).toString())}",
+                          style: getSemiBoldStyle(color: ColorManager.white),
                         ),
                       ),
-                    ],
-                  ),
-                  const Expanded(
-                    child: SizedBox(
-                      width: SizeManager.s5,
                     ),
-                  ),
-                  Text(
-                    "\$${addZero(product.price)}",
-                    style: getSemiBoldStyle(color: ColorManager.black),
-                  ),
-                ],
-              ),
-              SizedBox(
-                width: double.maxFinite,
-                height: SizeManager.s50,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: ColorManager.black,
-                  ),
-                  child: Text(
-                    "Pay \$${addZero(product.price)}",
-                    style: getSemiBoldStyle(color: ColorManager.white),
-                  ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            );
+          }
         );
       },
     );
+  }
+
+  //----------------------------------------------------------------------------
+  // Calculate total price
+  //----------------------------------------------------------------------------
+
+  calculateTotalPrice(Product product) {
+    double totalPrice;
+
+    totalPrice = double.parse(product.price) * product.quantity;
+
+    return totalPrice;
   }
 }
