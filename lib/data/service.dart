@@ -36,6 +36,6 @@ Future<Product> getProductFromDocumentSnapshot(DocumentSnapshot documentSnapshot
     imageUrl: documentSnapshot.get("images")[0],
     price: price,
     priceId: priceId,
-    quantity: 0,
+    quantity: 1,
   );
 }
