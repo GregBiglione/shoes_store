@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shoes_store/app/constant/route.dart';
 import 'package:shoes_store/data/service.dart';
+import 'package:shoes_store/presentation/checkout/checkout_view.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
 import 'package:shoes_store/presentation/ressource/size_manager.dart';
 import 'package:shoes_store/presentation/ressource/string_manager.dart';
@@ -255,13 +257,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
     documentReference.snapshots().listen((ds) {
       if(ds.exists) {
-        String url = "";
+        String url = "https://www.google.com";
 
-        try {
+        Navigator.push(
+            context, MaterialPageRoute(
+            builder: (context) => CheckoutView(url: url),)
+        );
+        /*try {
           url = ds.get("url");
+          Navigator.pushNamed(context, Routes.checkoutRoute);
         } catch (e) {
-          rethrow;
-        }
+          print(e);
+        }*/
       }
     });
 
