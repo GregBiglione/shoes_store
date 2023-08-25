@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_store/data/service.dart';
@@ -6,6 +7,7 @@ import 'package:shoes_store/presentation/ressource/size_manager.dart';
 import 'package:shoes_store/presentation/ressource/string_manager.dart';
 import 'package:shoes_store/presentation/ressource/style_manager.dart';
 
+import '../../app/constant/constant.dart';
 import '../../app/function.dart';
 import '../../domain/model/product.dart';
 
@@ -198,7 +200,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: double.maxFinite,
                       height: SizeManager.s50,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          buyProduct(product);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: ColorManager.black,
                         ),
@@ -228,5 +232,38 @@ class _HomeScreenState extends State<HomeScreen> {
     totalPrice = double.parse(product.price) * product.quantity;
 
     return totalPrice;
+  }
+
+  //----------------------------------------------------------------------------
+  // Buy
+  //----------------------------------------------------------------------------
+
+  buyProduct(Product product) async {
+    String uid = FirebaseAuth.instance.currentUser!.uid;
+
+    DocumentReference documentReference = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .collection("checkout_sessions")
+        .add({
+          "price": product.priceId,
+          "quantity": product.quantity,
+          "mode": "payment",
+          "success_url ": successUrl,
+          "cancel_url ": cancelUrl,
+        });
+
+    documentReference.snapshots().listen((ds) {
+      if(ds.exists) {
+        String url = "";
+
+        try {
+          url = ds.get("url");
+        } catch (e) {
+          rethrow;
+        }
+      }
+    });
+
   }
 }
