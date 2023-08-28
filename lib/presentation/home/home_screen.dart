@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shoes_store/app/constant/route.dart';
+import 'package:logger/logger.dart';
 import 'package:shoes_store/data/service.dart';
 import 'package:shoes_store/presentation/checkout/checkout_view.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
@@ -21,6 +21,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String uid = FirebaseAuth.instance.currentUser!.uid;
+  var logger = Logger();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Product>>(
@@ -241,8 +244,6 @@ class _HomeScreenState extends State<HomeScreen> {
   //----------------------------------------------------------------------------
 
   buyProduct(Product product) async {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-
     DocumentReference documentReference = await FirebaseFirestore.instance
         .collection("users")
         .doc(uid)
@@ -255,22 +256,40 @@ class _HomeScreenState extends State<HomeScreen> {
           "cancel_url ": cancelUrl,
         });
 
-    documentReference.snapshots().listen((ds) {
-      if(ds.exists) {
-        String url = "https://www.google.com";
-
-        Navigator.push(
-            context, MaterialPageRoute(
-            builder: (context) => CheckoutView(url: url),)
-        );
-        /*try {
-          url = ds.get("url");
-          Navigator.pushNamed(context, Routes.checkoutRoute);
-        } catch (e) {
-          print(e);
-        }*/
+    documentReference.snapshots().listen((docSnapshot) {
+      if(docSnapshot.exists){
+        try {
+          getCheckout();
+        } catch (error) {
+          logger.e(error);
+        }
       }
     });
+  }
 
+  //----------------------------------------------------------------------------
+  // Get url
+  //----------------------------------------------------------------------------
+
+  getCheckout() async {
+    var documentReference = FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .collection("checkout_sessions");
+
+    final snapshot = await documentReference.get();
+    String url = snapshot.docs.first.get("url");
+    goToPayment(url);
+  }
+
+  //----------------------------------------------------------------------------
+  // Go to payment
+  //----------------------------------------------------------------------------
+
+  goToPayment(String url) {
+    Navigator.push(
+        context, MaterialPageRoute(
+      builder: (context) => CheckoutView(url: url),)
+    );
   }
 }

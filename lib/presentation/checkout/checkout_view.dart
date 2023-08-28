@@ -17,6 +17,7 @@ class _CheckoutViewState extends State<CheckoutView> {
   void initState() {
     controller
       ..loadRequest(Uri.parse(widget.url))
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(NavigationDelegate(
         onProgress: (int progress){},
         onWebResourceError: (error) {},
