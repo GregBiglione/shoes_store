@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:shoes_store/app/constant/constant.dart';
-import 'package:shoes_store/widget/custom_dialog_box.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../ressource/color_manager.dart';
 
 class CheckoutView extends StatefulWidget {
   final String url;
@@ -16,6 +15,7 @@ class CheckoutView extends StatefulWidget {
 class _CheckoutViewState extends State<CheckoutView> {
   WebViewController controller = WebViewController();
   int count = 0;
+  var logger = Logger();
 
   @override
   void initState() {
@@ -32,15 +32,11 @@ class _CheckoutViewState extends State<CheckoutView> {
               }
               if(request.url.startsWith(successUrl)) {
                 Navigator.pop(context, success);
+                logger.i("Success");
               }
               else if(request.url.startsWith(cancelUrl)) {
-                Navigator.of(context).popUntil((_) => count++ >= 2);
-                customDialogBox(
-                  cancelToastTitle,
-                  Icons.cancel_outlined,
-                  ColorManager.cancel,
-                  context,
-                );
+                Navigator.pop(context, cancel);
+                logger.e("Failed");
               }
 
               return NavigationDecision.navigate;
