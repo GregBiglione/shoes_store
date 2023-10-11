@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:shoes_store/app/constant/route.dart';
 import 'package:shoes_store/data/service.dart';
 import 'package:shoes_store/presentation/checkout/checkout_view.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
@@ -48,7 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     actions: [
                       // History button ----------------------------------------
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.previousPurchaseRoute);
+                        },
                         icon: Icon(
                           Icons.history,
                           color: ColorManager.white,
@@ -66,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  body: GridView.builder(
+                  body: SizedBox()/*GridView.builder(
                     itemCount: productList.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -137,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     },
-                  ),
+                  ),*/
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return loading(StringManager.loading);

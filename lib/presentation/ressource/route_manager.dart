@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_store/presentation/home/home_screen.dart';
 import 'package:shoes_store/presentation/login/login_screen.dart';
+import 'package:shoes_store/presentation/previous_purchase/previous_purchase_screen.dart';
 import 'package:shoes_store/presentation/ressource/string_manager.dart';
 
 import '../../app/constant/route.dart';
@@ -15,6 +16,8 @@ class RouteManager {
         return MaterialPageRoute(builder: (_) => const SignUpScreen());
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
+      case Routes.previousPurchaseRoute:
+        return MaterialPageRoute(builder: (_) => const PreviousPurchaseScreen());
       default:
         return undefinedRoute();
     }
