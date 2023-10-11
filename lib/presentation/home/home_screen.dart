@@ -46,6 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     backgroundColor: ColorManager.black,
                     actions: [
+                      // History button ----------------------------------------
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.history,
+                          color: ColorManager.white,
+                        ),
+                      ),
+                      // Log out button ----------------------------------------
                       IconButton(
                         onPressed: () async {
                           await FirebaseAuth.instance.signOut();
