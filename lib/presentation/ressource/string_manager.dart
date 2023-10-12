@@ -10,4 +10,5 @@ class StringManager {
   static const String login = "Login";
   static const String loading = "Loading...";
   static const String buy = "Buy";
+  static const String previousPurchase = "Purchase history";
 }
