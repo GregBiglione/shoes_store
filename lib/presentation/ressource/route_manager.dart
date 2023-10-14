@@ -10,8 +10,6 @@ import '../sign_up/sign_up_screen.dart';
 
 class RouteManager {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
-    List<Product> args = routeSettings.arguments as List<Product>;
-
     switch(routeSettings.name){
       case Routes.loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
@@ -20,6 +18,7 @@ class RouteManager {
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case Routes.previousPurchaseRoute:
+        List<Product> args = routeSettings.arguments as List<Product>;
         List<Product> productList = args;
         return MaterialPageRoute(
             builder: (_) => PreviousPurchaseScreen(productList: productList,),
