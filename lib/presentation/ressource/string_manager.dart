@@ -11,4 +11,8 @@ class StringManager {
   static const String loading = "Loading...";
   static const String buy = "Buy";
   static const String previousPurchase = "Purchase history";
+  static const String loadingPreviousPurchase = "Loading previous purchase...";
+  static const String loadingDeliveredPurchase = "Loading delivered products...";
+  static const String onTheWay = "On the way";
+  static const String delivered = "Delivered";
 }

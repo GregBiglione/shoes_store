@@ -14,3 +14,6 @@ const String failedTitle = "Purchase failed!";
 const String cancelTitle = "Purchase cancelled!";
 const String successTitle = "Purchase successful!";
 const String processPayment = "Processing payment...";
+
+// Status ----------------------------------------------------------------------
+const String succeeded = "succeeded";

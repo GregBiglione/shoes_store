@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:shoes_store/app/constant/route.dart';
 import 'package:shoes_store/data/service.dart';
 import 'package:shoes_store/presentation/checkout/checkout_view.dart';
+import 'package:shoes_store/presentation/previous_purchase/previous_purchase_screen.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
 import 'package:shoes_store/presentation/ressource/size_manager.dart';
 import 'package:shoes_store/presentation/ressource/string_manager.dart';
@@ -50,7 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       // History button ----------------------------------------
                       IconButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, Routes.previousPurchaseRoute);
+                          Navigator.pushNamed(
+                              context,
+                              Routes.previousPurchaseRoute,
+                              arguments: productList,
+                          );
                         },
                         icon: Icon(
                           Icons.history,
@@ -69,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  body: SizedBox()/*GridView.builder(
+                  body: GridView.builder(
                     itemCount: productList.length,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -140,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       );
                     },
-                  ),*/
+                  ),
                 );
               } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return loading(StringManager.loading);

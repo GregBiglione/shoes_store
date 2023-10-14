@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_store/domain/model/product.dart';
 import 'package:shoes_store/presentation/home/home_screen.dart';
 import 'package:shoes_store/presentation/login/login_screen.dart';
 import 'package:shoes_store/presentation/previous_purchase/previous_purchase_screen.dart';
@@ -9,6 +10,8 @@ import '../sign_up/sign_up_screen.dart';
 
 class RouteManager {
   static Route<dynamic> getRoute(RouteSettings routeSettings) {
+    List<Product> args = routeSettings.arguments as List<Product>;
+
     switch(routeSettings.name){
       case Routes.loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
@@ -17,7 +20,10 @@ class RouteManager {
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
       case Routes.previousPurchaseRoute:
-        return MaterialPageRoute(builder: (_) => const PreviousPurchaseScreen());
+        List<Product> productList = args;
+        return MaterialPageRoute(
+            builder: (_) => PreviousPurchaseScreen(productList: productList,),
+        );
       default:
         return undefinedRoute();
     }
