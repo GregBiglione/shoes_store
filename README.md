@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/winged_shoe_logo.png?raw=true" alt="Netflix logo"/><h1>Does Store features</h1>
+  <img src="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/winged_shoe_logo.png?raw=true" alt="Netflix logo"/>
 </p>
 
 <b>ShoesStore</b> is a Flutter application with a clean architecture using Firebase & Stripe</br>
@@ -8,12 +8,12 @@
 <ul>
   <li>Login, register with an email on Firebase & logout</li>
   <li>Buy shoes</li>
-  <li>Display list of previous purchases wuth their status</li>
+  <li>Display a list of previous purchases with their status</li>
 </ul>
 
 <h2>Application demo</h2></br>
 
-<h4>Register screen, login screen, logout & buy shoes é displau previous purchases</h4></br>
+<h4>Register screen, login screen, logout & buy shoes & display previous purchases</h4></br>
 
 <img src ="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/1_login.gif" title = "Register screen" alt = "Register screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/2_payment.gif" title = "Purchase screen" alt = "Purchase screen" width="273" height="450">
 
