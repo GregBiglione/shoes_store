@@ -64,7 +64,10 @@ class _PreviousPurchaseScreenState extends State<PreviousPurchaseScreen> {
                         }
 
                         return ListTile(
-                          leading: Image.network(product.imageUrl),
+                          leading: Image.network(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                           title: Text(
                             product.name,
                             style: getSemiBoldStyle(color: ColorManager.black),

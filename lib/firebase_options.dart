@@ -50,7 +50,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyArEMzTRM7EvCUSaIobK6asvWNt1C9zMpo',
+    apiKey: '',
     appId: '1:861621052394:android:b9f39bdc4329c15b900893',
     messagingSenderId: '861621052394',
     projectId: 'shoesstore-d6003',
@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDfSNMod1DL-G97bP6nvENoIzxWXLFVA6Q',
+    apiKey: '',
     appId: '1:861621052394:ios:0ecef0a48915673d900893',
     messagingSenderId: '861621052394',
     projectId: 'shoesstore-d6003',

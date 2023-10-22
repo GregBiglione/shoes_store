@@ -5,7 +5,6 @@ import 'package:logger/logger.dart';
 import 'package:shoes_store/app/constant/route.dart';
 import 'package:shoes_store/data/service.dart';
 import 'package:shoes_store/presentation/checkout/checkout_view.dart';
-import 'package:shoes_store/presentation/previous_purchase/previous_purchase_screen.dart';
 import 'package:shoes_store/presentation/ressource/color_manager.dart';
 import 'package:shoes_store/presentation/ressource/size_manager.dart';
 import 'package:shoes_store/presentation/ressource/string_manager.dart';
@@ -290,6 +289,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
         if(error != null) {
           logger.e(error);
+
+          setState(() {
+            isLoadingPayment = false;
+          });
         }
         else {
           String url = docSnapshot.get("url");
