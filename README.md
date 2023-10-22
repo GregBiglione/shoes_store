@@ -1,16 +1,39 @@
-# shoes_store
+<p align="center">
+  <img src="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/winged_shoe_logo.png?raw=true" alt="Netflix logo"/><h1>Does Store features</h1>
+</p>
 
-A new Flutter project.
+<b>ShoesStore</b> is a Flutter application with a clean architecture using Firebase & Stripe</br>
 
-## Getting Started
+<h2>Application features</h2></br>
+<ul>
+  <li>Login, register with an email on Firebase & logout</li>
+  <li>Buy shoes</li>
+  <li>Display list of previous purchases wuth their status</li>
+</ul>
 
-This project is a starting point for a Flutter application.
+<h2>Application demo</h2></br>
 
-A few resources to get you started if this is your first Flutter project:
+<h4>Register screen, login screen, logout & buy shoes é displau previous purchases</h4></br>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<img src ="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/1_login.gif" title = "Register screen" alt = "Register screen" width="273" height="450"> <img src ="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/2_payment.gif" title = "Purchase screen" alt = "Purchase screen" width="273" height="450">
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<h2>Packages</h2></br>
+<ul>
+ <li><a href="https://pub.dev/packages/firebase_auth">firebase_auth</a></li>
+ <li><a href="https://pub.dev/packages/firebase_core">firebase_core</a></li>
+ <li><a href="https://pub.dev/packages/cloud_firestore">cloud_firestore</a></li>
+ <li><a href="https://pub.dev/packages/cloud_functions">cloud_functions</a></li>
+ <li><a href="https://pub.dev/packages/webview_flutter">webview_flutter</a></li>
+ <li><a href="https://pub.dev/packages/logger">logger</a></li> 
+</ul>
+
+<h2>API</h2></br>
+<ul>
+ <li><a href="https://stripe.com/">Stripe</a></li>
+</ul>
+
+<h2>Languages available</h2></br>
+
+<ul>
+ <li><img src ="https://github.com/GregBiglione/shoes_store/blob/master/assets/images/us.png" title = "en" alt = "en" width="20" height="12"> English</li> 
+</ul>
